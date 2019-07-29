@@ -21,7 +21,7 @@ unsigned long oldTime;
 // Update these with values suitable for your network.
 
 const char* ssid = "JioFiber-ahGu7";
-const char* password = "welcome2ibm";
+const char* password = "YOUR PASSWORD";
 const char* mqtt_server = "m12.cloudmqtt.com";
 
 WiFiClient espClient;
