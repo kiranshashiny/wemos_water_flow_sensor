@@ -5,8 +5,17 @@
  * 
  * ESP8266 does not have EEPROM, instead it has flash.
  * we read and write to flash
- * It is important to use the EEPROM.begin(512);  and EEPROM.end() at the end. Or else it wont work.
+ * It is important to use the EEPROM.begin(512) and read/write followed by EEPROM.commit(), and EEPROM.end(), Or else it wont work.
  * EEPROM.commit ( ) moves the data from RAM to Flash. Or else it wont work.
+ * 
+ * In this example I have used a data structure to be updated to flash
+ * The loop() goes forever reading data from Flash and then increments with some value and writes back to Flash.
+ * This is to show that the data is persistent.
+ * 
+ * User can shut the power to ESP8266, and connect back, and notice that the data is still persistent.
+ * 
+ * cat /dev/wch.usbserial1410 on a xterm terminal to read the Serial Monitor output.
+ * 
  * 
     eeprom_put example.
 
