@@ -16,19 +16,14 @@
 // for LCD
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
-
-
 // The amount of time (in milliseconds) between tests
 #define TEST_DELAY   2000
-
-
 
 TM1637Display display(CLK, DIO);
 
 byte statusLed    = 13;
 
-byte sensorInterrupt = D7;  // 0 = digital pin 2
-byte sensorPin       = D7;
+byte sensorInterrupt = D5;  // 0 = digital pin 2
 
 // The hall-effect flow sensor outputs approximately 4.5 pulses per second per
 // litre/minute of flow.
@@ -216,8 +211,8 @@ void setup()
   pinMode(statusLed, OUTPUT);
   digitalWrite(statusLed, HIGH);  // We have an active-low LED attached
   
-  pinMode(sensorPin, INPUT);
-  digitalWrite(sensorPin, HIGH);
+  //pinMode(sensorPin, INPUT);
+  //digitalWrite(sensorPin, HIGH);
 
   pulseCount        = 0;
   flowRate          = 0.0;
@@ -228,7 +223,7 @@ void setup()
   // The Hall-effect sensor is connected to pin 2 which uses interrupt 0.
   // Configured to trigger on a FALLING state change (transition from HIGH
   // state to LOW state)
-  attachInterrupt(sensorInterrupt, pulseCounter, FALLING);
+  attachInterrupt(digitalPinToInterrupt(sensorInterrupt), pulseCounter, FALLING);
 
   // LED
   display.setBrightness(0x0f);
@@ -250,7 +245,7 @@ void loop()
   { 
     // Disable the interrupt while calculating flow rate and sending the value to
     // the host
-    detachInterrupt(sensorInterrupt);
+    detachInterrupt(digitalPinToInterrupt(sensorInterrupt));
         
     // Because this loop may not complete in exactly 1 second intervals we calculate
     // the number of milliseconds that have passed since the last execution and use
@@ -313,15 +308,17 @@ void loop()
     //lcd.setCursor ( 14,0);
     lcd.print ( "mL");
     lcd.setCursor ( 0,1 );
-    lcd.print ( "second line ");
-    
+    float  x = totalMilliLitres;
+    x = x /1000 ;
+    lcd.print ( x );
+    lcd.print ("mL");
     // Update the water flow data back to EEProm
     
     // Reset the pulse counter so we can start incrementing again
     pulseCount = 0;
     read_write_eeprom();
     // Enable the interrupt again now that we've finished sending output
-    attachInterrupt(sensorInterrupt, pulseCounter, FALLING);
+    attachInterrupt(digitalPinToInterrupt(sensorInterrupt), pulseCounter, FALLING);
   }
 }
 
@@ -333,3 +330,4 @@ void pulseCounter()
   // Increment the pulse counter
   pulseCount++;
 }
+
