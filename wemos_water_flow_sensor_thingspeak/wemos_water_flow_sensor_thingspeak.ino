@@ -6,7 +6,7 @@
 #include "ThingSpeak.h"
 
 unsigned long myChannelNumber = 843620;
-const char * myWriteAPIKey = "W03ROYFTD667EK23";
+const char * myWriteAPIKey = "YOUR_API_WRITE_KEY";
 
 
 // For LCD 16x2 - The pins are to be connected to SDA(D2) and SCL (D1) of Wemos
@@ -45,7 +45,7 @@ unsigned long oldTime;
 // Update these with values suitable for your network.
 
 const char* ssid = "JioFiber-ahGu7";
-const char* password = "welcome2ibm";
+const char* password = "YOUR_ROUTER_PWD";
 const char* mqtt_server = "m12.cloudmqtt.com";
 
 WiFiClient espClient;
@@ -181,7 +181,7 @@ void reconnect() {
     // Attempt to connect
     Serial.println (clientId);
     if (client.connect(clientId.c_str(), "oxefqvkn", "uTM7RdarxTPA" )) {
-//    if (client.connect("ESP8266Client", "oxefqvkn", "uTM7RdarxTPA" )) {
+//   if (client.connect("ESP8266Client", "oxefqvkn", "uTM7RdarxTPA" )) {
 
       Serial.println("connected");
       // Once connected, publish an announcement...
