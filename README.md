@@ -75,3 +75,20 @@ This will only be active when there is water flow in the tap.
 
 ![Screenshot_20190729-150537_MyMQTT](https://user-images.githubusercontent.com/14288989/62038784-07b67980-b214-11e9-9115-9401c572e610.jpg)
 
+
+
+Code to catch switch or pulse bounce and handle it
+
+https://forum.arduino.cc/index.php?topic=417406.0
+ 
+		void debounceISR()
+		{
+		  static unsigned long last_interrupt_time = 0;
+		  unsigned long interrupt_time = millis();
+		  if (interrupt_time - last_interrupt_time > debounceInterval) //declare the debounce/block out interval in setup
+		  {
+		    pulseCount++;
+		  }
+		  last_interrupt_time = interrupt_time;
+		 
+		}
