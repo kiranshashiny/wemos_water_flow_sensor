@@ -326,18 +326,21 @@ void loop()
     lcd.setCursor ( 0,0);
     lcd.print("Usage ");
     //lcd.setCursor ( 7,0);
-    lcd.print(  int( totalMilliLitres/1000)  );
+    float  x = totalMilliLitres;
+    x = x /1000 ;
+    lcd.print(  x );
     lcd.print ( " L " );
 
     //lcd.setCursor (11, 0);
-    lcd.print ( int( totalMilliLitres) );
+
+    lcd.setCursor ( 0,1 );
+
+        lcd.print ( int( totalMilliLitres) );
     //lcd.setCursor ( 14,0);
     lcd.print ( "mL");
-    lcd.setCursor ( 0,1 );
-    float  x = totalMilliLitres;
-    x = x /1000 ;
-    lcd.print ( x );
-    lcd.print ("mL");
+    
+    //lcd.print ( int( totalMilliLitres/1000)  );
+    //lcd.print ("L");
     // Update the water flow data back to EEProm
     
     // Reset the pulse counter so we can start incrementing again
